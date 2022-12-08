@@ -75,6 +75,9 @@
     <ClCompile Include="week7-1.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="week8-1.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mystring.h">
