@@ -10,22 +10,30 @@ struct node {
 
 
 node* createList(int n) {
-	node* p1 = nullptr;
+	int flag = 0;
+	node* p = nullptr;
+	node* curr = nullptr;
 	for (int i = 0; i < n; i++) {
-		p1 = new node;
-		node* curr = p1;
-		int val;
-		cin >> val;
-		curr->v = val;
-		if (i < n - 1) {
-			curr->next = new node;
-			curr = curr->next;
+		if (flag == 0) {
+			flag = 1;
+			curr = new node;
+			int val;
+			cin >> val;
+			curr->v = val;
+			curr->next = nullptr;
+			p = curr;
 		}
 		else {
-			curr->next = nullptr;
+			node* tmp = new node;
+			int val;
+			cin >> val;
+			tmp->v = val;
+			tmp->next = nullptr;
+			curr->next = tmp;
+			curr = curr->next;
 		}
 	}
-	return p1;
+	return p;
 }
 
 
@@ -45,35 +53,33 @@ void display(node* p) {
 
 
 node* listCopy(node* p) {
+	int flag = 0;
 	if (!p) return nullptr;
-	node* resHead = new node;
-	resHead->v = p->v;
-	resHead->next = nullptr;
-	if (p->next == nullptr) {
-		return resHead;
-	}
-	else {
-		node* curr = p->next;
-		node* tmp = new node;
-		resHead->next = tmp;
-		while (curr != nullptr) {
-			tmp->v = curr->v;
-			if (curr->next != nullptr) {
-				tmp->next = new node;
-				tmp = tmp->next;
-				int tt = 0;
-			}
-			else {
-				tmp->next = nullptr;
-			}
+	node* curr = p;
+	node* res = new node;
+	res->v = curr->v;
+	res->next = nullptr;
+	node* rescurr = res;
+	while (curr) {
+		if (flag == 0) {
+			flag = 1;
 			curr = curr->next;
 		}
-		return resHead;
+		else {
+			node* tmp = new node;
+			tmp->v = curr->v;
+			tmp->next = nullptr;
+			rescurr->next = tmp;
+			rescurr = rescurr->next;
+			curr = curr->next;
+		}
 	}
+	return res;
 }
 
 
 node* unionSet(node* p1, node* p2) {
+	if (!p1 && !p2) return nullptr;
 	node* p11 = listCopy(p1);
 	node* p22 = listCopy(p2);
 	node* res = new node;
